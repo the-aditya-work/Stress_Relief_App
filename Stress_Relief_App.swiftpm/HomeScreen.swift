@@ -11,13 +11,13 @@ struct HomeScreen: View {
     var body: some View {
         NavigationView {
             
-            VStack(spacing: 20){
+            VStack(spacing: 30){
                 
                 Text("Stress Relief Companion")
                     .font(.title)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
-                    .padding(.top,-20)
+                    .padding(.top,20)
                 
                 Text("Reduce stress with guided breathing, relaxing sounds, and yoga.")
                     .font(.subheadline)
@@ -34,11 +34,14 @@ struct HomeScreen: View {
                 NavigationLink(destination: BreathingExerciseScreen()) {
                     Text("Start Breathing Exercise")
                         .buttonStylePrimary()
-                    //.padding(.top, 50)
-                }
+                    }
                 
-                Text("Play Relaxing Sounds")
-                    .buttonStylePrimary()
+               // NavigationLink(destination: SoundScreen()) {
+                    
+                    
+                    Text("Play Relaxing Sounds")
+                        .buttonStylePrimary()
+               // }
                 
                 Text("Explore Yoga Poses")
                     .buttonStylePrimary()
