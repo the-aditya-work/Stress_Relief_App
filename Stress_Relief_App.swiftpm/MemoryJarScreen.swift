@@ -18,13 +18,14 @@ struct MemoryJarScreen: View {
                 Text("Mood Booster Jar")
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.top , -10)
+                    .padding(.top , 10)
                 
                 if memories.isEmpty {
                     Image("memory")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 200, height: 200)
+                        .cornerRadius(10)
+                        .frame(width: 350, height: 200)
                         .padding(.top, 20)
                     
                     Text("Your memory jar is empty. Start by adding a memory!")
@@ -66,6 +67,6 @@ extension View {
             .background(Color.blue)
             .foregroundColor(.white)
             .cornerRadius(10)
-            .padding(.top , 50)
+            .padding(.horizontal)
     }
 }
