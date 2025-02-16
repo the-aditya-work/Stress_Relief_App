@@ -36,12 +36,12 @@ struct HomeScreen: View {
                         .buttonStylePrimary()
                     }
                 
-               // NavigationLink(destination: SoundScreen()) {
+                NavigationLink(destination: MusicPlayerScreen()) {
                     
                     
                     Text("Play Relaxing Sounds")
                         .buttonStylePrimary()
-               // }
+                }
                 
                 Text("Explore Yoga Poses")
                     .buttonStylePrimary()
