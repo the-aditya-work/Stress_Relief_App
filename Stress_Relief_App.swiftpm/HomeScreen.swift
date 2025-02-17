@@ -43,8 +43,12 @@ struct HomeScreen: View {
                         .buttonStylePrimary()
                 }
                 
-                Text("Explore Yoga Poses")
-                    .buttonStylePrimary()
+                NavigationLink(destination: YogaPosesScreen()) {
+                    
+                    Text("Explore Yoga Poses")
+                        .buttonStylePrimary()
+                    
+                }
             }
         }
     }

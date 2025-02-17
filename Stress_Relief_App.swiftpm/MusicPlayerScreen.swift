@@ -68,13 +68,10 @@ struct MusicPlayerScreen: View {
                 MusicListView(sounds: sounds, selectTrack: selectTrack)
             }
             .onAppear { audioManager.loadSound(file: sounds[currentIndex].file) }
-//            .onAppear {
-//                audioManager.loadSound(file: "Rain")
-//            }
             .onDisappear { audioManager.stopSound() }
         }
     }
-
+    
     func togglePlayPause() {
         audioManager.togglePlayPause()
         isPlaying = audioManager.isPlaying
