@@ -18,10 +18,10 @@ struct BreathingExerciseScreen: View {
         
         VStack(spacing: 20){
             
-            Text("Breathe In and Out")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(20)
+//            Text("Breathe In and Out")
+//                .font(.title)
+//                .fontWeight(.bold)
+//                .padding(20)
             
             Spacer()
             
@@ -47,7 +47,7 @@ struct BreathingExerciseScreen: View {
             Button(action: toggleBreathing) {
                 Text(isAnimating ? "Stop" : "Start")
                     .padding()
-                    .frame(width: 120)
+                    .frame(width: 100 , height: 40)
                     .background(isAnimating ? Color.red : Color.green)
                     .foregroundStyle(.white)
                     .cornerRadius(10)
