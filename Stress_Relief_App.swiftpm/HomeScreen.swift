@@ -11,45 +11,54 @@ struct HomeScreen: View {
     var body: some View {
         NavigationView {
             
-            VStack(spacing: 30){
+            VStack(spacing: 24){
+                Spacer(minLength: 40)
                 
-                Text("Stress Relief Companion")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .padding(.top,20)
-                
-                Text("Reduce stress with guided breathing, relaxing sounds, and yoga.")
-                    .font(.subheadline)
-                //.foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 10)
+                VStack(spacing: 8) {
+                    Text("Stress Relief Companion")
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                    
+                    Text("Reduce stress with guided breathing, relaxing sounds, and yoga.")
+                        .font(.system(size: 18, weight: .medium, design: .rounded))
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 20)
+                }
                 
                 Image("logo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 200)
+                    .frame(width: 220, height: 220)
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .shadow(radius: 5)
                     .padding(.top, 20)
                 
-                NavigationLink(destination: BreathingExerciseScreen()) {
-                    Text("Start Breathing Exercise")
-                        .buttonStylePrimary()
+                Spacer()
+                
+                VStack(spacing: 16) {
+                    NavigationLink(destination: BreathingExerciseScreen()) {
+                        Label("Start Breathing Exercise", systemImage: "lungs.fill")
+                            .buttonStylePrimary()
                     }
-                
-                NavigationLink(destination: MusicPlayerScreen()) {
                     
+                    NavigationLink(destination: MusicPlayerScreen()) {
+                        Label("Play Relaxing Sounds", systemImage: "music.note.list")
+                            .buttonStylePrimary()
+                    }
                     
-                    Text("Play Relaxing Sounds")
-                        .buttonStylePrimary()
+                    NavigationLink(destination: YogaPosesScreen()) {
+                        
+                        Label("Explore Yoga Poses", systemImage: "figure.yoga")
+                            .buttonStylePrimary()
+                        
+                    }
                 }
-                
-                NavigationLink(destination: YogaPosesScreen()) {
-                    
-                    Text("Explore Yoga Poses")
-                        .buttonStylePrimary()
-                    
-                }
+                .padding(.horizontal)
+                Spacer(minLength: 30)
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -59,9 +68,10 @@ extension View {
         self.font(.headline)
             .padding()
             .frame(maxWidth: .infinity)
-            .background(Color.blue)
+            .background(Color.accentColor)
             .foregroundColor(.white)
-            .cornerRadius(10)
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .shadow(radius: 3)
             .padding(.horizontal)
         
     }

@@ -16,15 +16,24 @@ struct BreathingExerciseScreen: View {
     
     var body: some View {
         
-        VStack(spacing: 20){
+        VStack {
+        VStack(spacing: 8){
+            Text("Breathing Exercise")
+                .font(.system(size: 34, weight: .bold, design: .default))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+                .padding(.top, 10)
             
-//            Text("Breathe In and Out")
-//                .font(.title)
-//                .fontWeight(.bold)
-//                .padding(20)
-            
-            Spacer()
-            
+            Text("Follow the circle: expand as you inhale, contract as you exhale.")
+                .font(.system(size: 18, weight: .regular, design: .default))
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 30)
+        }
+        .padding(.top, 10)
+        
+        Spacer(minLength: 10)
+        
             ZStack{
                 Circle()
                     .frame(width: circleSize, height: circleSize)
@@ -36,26 +45,25 @@ struct BreathingExerciseScreen: View {
                     .fontWeight(.medium)
                     .foregroundColor(.white)
                 }
+            .shadow(radius: 10)
             
             Spacer()
             
-            Text("Follow the circle: expand as you inhale, contract as you exhale.")
-                .font(.subheadline)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-            
             Button(action: toggleBreathing) {
                 Text(isAnimating ? "Stop" : "Start")
-                    .padding()
-                    .frame(width: 100 , height: 40)
-                    .background(isAnimating ? Color.red : Color.green)
+                    .font(.headline)
+                    .frame(maxWidth: 200 , minHeight: 55)
+                    .background(isAnimating ? Color.red : Color.blue)
                     .foregroundStyle(.white)
-                    .cornerRadius(10)
+                    .clipShape(Capsule())
+                    .shadow(radius: 5)
+                    .padding(.bottom, 30)
             }
-            }
-        .navigationTitle("Breathing Exercise")
-        .padding()
         }
+//        .navigationTitle("Breathing Exercise")
+        .padding()
+    }
+    
     private func toggleBreathing() {
         if isAnimating {
             stopBreathing()

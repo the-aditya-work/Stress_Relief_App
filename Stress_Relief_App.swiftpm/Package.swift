@@ -19,7 +19,7 @@ let package = Package(
             bundleIdentifier: "apple.Stress-Relief-App",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .cloud),
+            appIcon: .placeholder(icon: .twoPeople),
             accentColor: .presetColor(.blue),
             supportedDeviceFamilies: [
                 .pad,
