@@ -4,113 +4,6 @@
 //
 //  Created by Aditya Rai on 12/02/25.
 //
-//import SwiftUI
-//
-//struct GratitudePracticeScreen: View {
-//    @State private var gratitudeList: [String] = []
-//    @State private var newGratitude = ""
-//    @State private var showConfirmation = false
-//    
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                Text("Daily Gratitude Journal")
-//                    .font(.title)
-//                    .fontWeight(.medium)
-//                    .padding()
-//                //.foregroundStyle(.purple)
-//                
-//                Text("Start your day with gratitude! Write 3 things you're thankful for and brighten your mindset. ☀️")
-//                    .font(.subheadline)
-//                    .multilineTextAlignment(.center)
-//                    .padding(.horizontal)
-//                    .foregroundColor(.gray)
-//                
-//                TextField("Enter gratitude here...", text: $newGratitude)
-//                 //.textFieldStyle(RoundedBorderTextFieldStyle())
-//                    .padding()
-//                    .background(Color(.systemGray6))
-//                    .cornerRadius(10)
-//                    .shadow(radius: 3)
-//                    .padding(.horizontal)
-//                
-//                Button(action: addGratitude){
-//                    HStack{
-//                        Image(systemName: "plus.circle.fill")
-//                        Text("Add Gratitude")
-//                            .fontWeight(.bold)
-//                    }
-//                    .padding()
-//                    .frame(maxWidth: .infinity)
-//                    .background(LinearGradient(gradient: Gradient(colors: [.purple, .pink]), startPoint: .leading, endPoint: .trailing))
-//                    .foregroundStyle(.white)
-//                    .cornerRadius(10)
-//                    .shadow(radius: 3)
-//                }
-//                .padding(.horizontal)
-//                .padding(.bottom, 10)
-//
-//                ScrollView {
-//                    VStack(spacing: 10){
-//                        ForEach(gratitudeList, id: \..self) { item in
-//                            HStack {
-//                                Text("• \(item)")
-//                                    .padding()
-//                                    .frame(maxWidth: .infinity, alignment: .leading)
-//                                    .background(Color.white)
-//                                    .cornerRadius(10)
-//                                    .shadow(radius: 2)
-//                            }
-//                            .padding(.horizontal)
-//                            .transition(.opacity)
-//                            
-//                        }
-//                    }
-//                }
-//                
-//                Spacer()
-//                
-//            }
-//            .padding()
-//            .background(Color(.systemGray6).edgesIgnoringSafeArea(.all))
-//            .overlay(
-//                showConfirmation ? ConfirmationView() : nil
-//            )
-//        }
-//    }
-//    
-//    func addGratitude(){
-//        if !newGratitude.isEmpty{
-//            withAnimation {
-//                gratitudeList.append(newGratitude)
-//            }
-//        
-//        newGratitude = ""
-//        showConfirmationAlert()
-//        }
-//    }
-//    
-//    func showConfirmationAlert() {
-//        showConfirmation = true
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-//            showConfirmation = false
-//        }
-//    }
-//    
-//}
-//
-//struct ConfirmationView: View {
-//    var body: some View {
-//        
-//        Text("🎉 Successfylly Added!")
-//            
-//            .font(.system(size: 25))
-//            .offset(y: -180)
-//            .transition(.scale)
-//            
-//              
-//    }
-//}
 
 import SwiftUI
 
@@ -120,17 +13,19 @@ struct GratitudePracticeScreen: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Daily Gratitude Journal")
-                    .font(.title)
-                    .fontWeight(.medium)
-                    .padding()
-                
-                Text("Start your day with gratitude! Write 3 things you're thankful for and brighten your mindset. ☀️")
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-                    .foregroundColor(.gray)
+            VStack (spacing: 20){
+                VStack(spacing: 8){
+                    Text("Daily Gratitude Journal")
+                        .font(.system(size: 34, weight: .bold, design: .default))
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 20)
+                    
+                    Text("Start your day with gratitude! Write 3 things you're thankful for and brighten your mindset. ☀️")
+                        .font(.system(size: 18, weight: .regular, design: .default))
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal,30)
+                }
                 
                 TextField("Enter gratitude here...", text: $newGratitude)
                     .padding()
@@ -138,6 +33,7 @@ struct GratitudePracticeScreen: View {
                     .cornerRadius(10)
                     .shadow(radius: 3)
                     .padding(.horizontal)
+                    .textFieldStyle(PlainTextFieldStyle())
                 
                 Button(action: addGratitude) {
                     HStack {
@@ -147,9 +43,9 @@ struct GratitudePracticeScreen: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(LinearGradient(gradient: Gradient(colors: [.purple, .pink]), startPoint: .leading, endPoint: .trailing))
-                    .foregroundStyle(.white)
-                    .cornerRadius(10)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                     .shadow(radius: 3)
                 }
                 .padding(.horizontal)
@@ -161,6 +57,7 @@ struct GratitudePracticeScreen: View {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text("• \(item.text)")
+                                        .foregroundColor(.black)
                                         .fontWeight(.medium)
                                     Text(item.date)
                                         .font(.caption)
@@ -169,7 +66,7 @@ struct GratitudePracticeScreen: View {
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color.white)
-                                .cornerRadius(10)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                                 .shadow(radius: 2)
                             }
                             .padding(.horizontal)

@@ -14,59 +14,66 @@ struct MemoryJarScreen: View {
     var body: some View {
         NavigationView {
             
-            VStack(spacing: 20){
+            VStack(spacing: 16){
                 Text("Mood Booster Jar")
                     .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top , 10)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                    .padding(.top , 16)
                 
                 if memories.isEmpty {
-                    Image("memory")
-                        .resizable()
-                        .scaledToFit()
-                        .cornerRadius(10)
-                        .frame(width: 350, height: 200)
-                        .padding(.top, 20)
-                    
-                    Text("Your memory jar is empty. Start by adding a memory!")
-                        .font(.subheadline)
-                        .multilineTextAlignment(.center)
-                        .padding(.top, 10)
-                    Text(" 🌟 Capture your happy moments, big or small, and revisit them whenever you need a smile. Reliving positive memories can boost your mood, reduce stress, and remind you of life’s joyful moments!")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                } else {
+                    VStack(spacing: 12) {
+                        Image("memory")
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(16)
+                            .frame(width: 350, height: 200)
+                            .padding(.top, 32)
+                        
+                        Text("Your memory jar is empty. Start by adding a memory!")
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                        
+                        Text(" 🌟 Capture your happy moments, big or small, and revisit them whenever you need a smile. Reliving positive memories can boost your mood, reduce stress, and remind you of life’s joyful moments!")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal,32)
+                    }
+                }
+                else {
                     List(memories) { memory in
                         NavigationLink(destination: MemoryDetailScreen(memory: memory)){
                             MemoryRow(memory: memory)
                         }
                     }
+                    .listStyle(InsetGroupedListStyle())
                 }
                 
                 Button(action: { isAddingMemory.toggle() }) {
                     Text("Add New Memory")
-                        .customButtonStyle()
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 16)
                 }
             }
+            .padding(.top, 20)
+            .background(Color(.systemBackground))
+            .cornerRadius(20)
+            .shadow(radius: 10)
             .sheet(isPresented: $isAddingMemory){
                 AddMemoryScreen(memories: $memories)
             }
-            .padding()
+            //.navigationTitle("Mood Booster Jar")
+            .navigationBarTitleDisplayMode(.inline)
+            
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
         
-}
-
-extension View {
-    func customButtonStyle() -> some View {
-        self.padding()
-            .frame(height: 50)
-            .frame(maxWidth: .infinity)
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(10)
-            .padding(.horizontal)
-    }
 }

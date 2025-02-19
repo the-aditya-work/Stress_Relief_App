@@ -17,34 +17,55 @@ struct YogaPosesScreen: View {
     ]
     
     var body: some View {
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.purple.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+            
         ScrollView {
             VStack(spacing: 20) {
                 Text("Yoga is the journey of the self, through the self, to the self.")
-                    .font(.caption)
-                    .fontWeight(.medium)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.black.opacity(0.3))
+                    .cornerRadius(12)
                     .padding(.horizontal)
-                    .padding(.top, 10)
-                    .padding(.bottom, 10)
                 
                 ForEach(poses, id: \.0) { pose in
                     NavigationLink(destination: YogaPoseDetailView(pose: pose, steps: getPoseSteps(for: pose.0))) {
-                        VStack(alignment: .leading) {
-                            Text(pose.0)
-                                .font(.headline)
-                                .foregroundColor(.blue)
+                        HStack {
+                            Image(pose.2)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .shadow(radius: 5)
                             
-                            Text(pose.1)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text(pose.0)
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                
+                                Text(pose.1)
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .lineLimit(2)
+                            }
+                            Spacer()
                         }
                         .padding()
-                        .background(Color.blue.opacity(0.1))
-                        .cornerRadius(10)
+                        .background(LinearGradient(gradient: Gradient(colors: [Color.purple.opacity(0.8), Color.blue.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
+                        .cornerRadius(15)
+                        .shadow(radius: 5)
                         .padding(.horizontal)
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }
+    }
         .navigationTitle("Yoga Poses")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -55,31 +76,36 @@ struct YogaPoseDetailView: View {
     let steps: [String]
     
     var body: some View {
-        VStack {
-            Image(pose.2)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 300)
-                .padding()
-            
-            Text(pose.0)
-                .font(.headline)
-                .fontWeight(.bold)
-                .padding(.bottom,-10)
-            
-            // Display the steps
-            VStack(alignment: .leading, spacing: 10) {
-                ForEach(steps, id: \.self) { step in
-                    Text("• \(step)")
-                        .font(.body)
-                        .padding(.horizontal)
-                        .foregroundColor(.gray)
-                        .padding(.horizontal)
+        ScrollView {
+            VStack {
+                Image(pose.2)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 300)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .shadow(radius: 10)
+                    .padding()
+                
+                Text(pose.0)
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .padding(.bottom,10)
+                
+                
+                VStack(alignment: .leading, spacing: 15) {
+                    ForEach(steps, id: \.self) { step in
+                        Text("• \(step)")
+                            .font(.body)
+                            .foregroundColor(.gray)
+                            .padding(.horizontal)
+                    }
                 }
+                .padding()
+                .background(Color.white.opacity(0.2))
+                .cornerRadius(10)
+                .padding()
+                .shadow(radius: 5)
             }
-            .padding(.top, 20)
-            
-            Spacer()
         }
         .navigationTitle(pose.0)
         .navigationBarTitleDisplayMode(.inline)

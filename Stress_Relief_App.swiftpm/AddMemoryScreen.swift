@@ -20,15 +20,16 @@ struct AddMemoryScreen: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 15) {
+            VStack(spacing: 20) {
                 TextField("Memory Title", text: $title)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
+                    .font(.body)
 
                 TextField("Description", text: $description)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
                     .padding(.horizontal)
+                    .font(.body)
 
                 DatePicker("Select Date", selection: $date, displayedComponents: .date)
                     .datePickerStyle(CompactDatePickerStyle())
@@ -37,6 +38,7 @@ struct AddMemoryScreen: View {
                 PhotosPicker(selection: $selectedItem, matching: .images) {
                     Text("Select an Image")
                         .foregroundColor(.blue)
+                        .font(.body)
                 }
                 .onChange(of: selectedItem) { newItem in
                     Task {
@@ -51,28 +53,37 @@ struct AddMemoryScreen: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: 150)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding()
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .padding(.top, 10)
                 }
 
                 Button(action: saveMemory) {
                     Text("Save Memory")
-                        .customButtonStyle()
-                        .padding(.bottom , 50)
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 20)
                 }
             }
+            .padding(.top, 20)
             .navigationTitle("Add Memory")
             .navigationBarTitleDisplayMode(.inline)
-            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(20)
+            .shadow(radius: 10)
             .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Cancel") {
-                                    dismiss()
-                                }
-                            }
-                        }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                    .foregroundColor(.blue)
+                }
             }
         }
+    }
     
 
     func saveMemory() {

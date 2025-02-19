@@ -11,7 +11,8 @@ struct MemoryDetailScreen : View {
     let memory: Memory
     
     var body: some View {
-            VStack(spacing: 10) {
+        ScrollView {
+            VStack(spacing: 16) {
                 if let imageData = memory.imageData, let uiImage = UIImage(data: imageData) {
                     Image(uiImage: uiImage)
                         .resizable()
@@ -19,26 +20,30 @@ struct MemoryDetailScreen : View {
                         .frame(height: 250)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding()
-                        
+                    
                 }
-
+                
                 Text(memory.title)
                     .font(.title3)
                     .fontWeight(.medium)
-
+                    .foregroundColor(.primary)
+                
                 Text(memory.date, style: .date)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-
+                
                 Text(memory.description)
                     .font(.body)
                     .multilineTextAlignment(.center)
-                    .padding()
+                    .padding(.horizontal, 20)
+                    .foregroundColor(.primary)
                 
                 Spacer()
                 
             }
             .navigationTitle("Memory Details")
+            .navigationBarTitleDisplayMode(.inline)
             .padding()
         }
+    }
 }
