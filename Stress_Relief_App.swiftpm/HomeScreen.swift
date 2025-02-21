@@ -46,7 +46,7 @@ struct HomeScreen: View {
                     NavigationLink(destination: MusicPlayerScreen()) {
                         Label("Play Relaxing Sounds", systemImage: "music.note.list")
                             .buttonStylePrimary()
-                    }
+                    } 
                     
                     NavigationLink(destination: YogaPosesScreen()) {
                         
