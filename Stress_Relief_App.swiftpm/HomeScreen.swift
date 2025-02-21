@@ -56,6 +56,7 @@ struct HomeScreen: View {
                     }
                 }
                 .padding(.horizontal)
+                .padding(.bottom, 0)
                 Spacer(minLength: 30)
             }
             .navigationBarTitleDisplayMode(.inline)

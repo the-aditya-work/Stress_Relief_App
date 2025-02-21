@@ -60,7 +60,6 @@ struct BreathingExerciseScreen: View {
                     .padding(.bottom, 30)
             }
         }
-//        .navigationTitle("Breathing Exercise")
         .padding()
     }
     
