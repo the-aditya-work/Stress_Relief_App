@@ -16,12 +16,12 @@ struct GratitudePracticeScreen: View {
             VStack (spacing: 20){
                 VStack(spacing: 8){
                     Text("Daily Gratitude Journal")
-                        .font(.system(size: 34, weight: .bold, design: .default))
+                        .font(.system(size: 28, weight: .bold, design: .default))
                         .multilineTextAlignment(.center)
                         .padding(.top, 20)
                     
                     Text("Start your day with gratitude! Write 3 things you're thankful for and brighten your mindset. ☀️")
-                        .font(.system(size: 18, weight: .regular, design: .default))
+                        .font(.system(size: 15, weight: .regular, design: .default))
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal,30)

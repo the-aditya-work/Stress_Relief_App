@@ -17,6 +17,7 @@ let package = Package(
             name: "Stress_Relief_App",
             targets: ["AppModule"],
             bundleIdentifier: "apple.Stress-Relief-App",
+            teamIdentifier: "777RNPN89P",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .twoPeople),
