@@ -40,7 +40,14 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "AppModule",
-            path: "."
+            path: ".",
+            resources: [
+                .copy("Resources/Rain.mp3"),
+                .copy("Resources/Ocean.mp3"),
+                .copy("Resources/Bird.mp3"),
+                .copy("Resources/Relaxing Sound.mp3"),
+                .copy("Resources/Peace Sound.mp3")
+            ]
         )
     ],
     swiftLanguageVersions: [.version("6")]

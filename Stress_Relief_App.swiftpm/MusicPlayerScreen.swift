@@ -32,10 +32,12 @@ struct MusicPlayerScreen: View {
                             .frame(width: 24, height: 24)
                             .foregroundColor(.white)
                             .padding(12)
+                            
                             .background(BlurView(style: .systemUltraThinMaterialDark))
                             .clipShape(Circle())
                     }
                     .padding(.leading)
+                    .position(x: 361, y:0)
                     
                     Spacer()
                 }
@@ -47,16 +49,17 @@ struct MusicPlayerScreen: View {
                 Image(sounds[currentIndex].file)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 280, height: 280)
+                    .frame(width: 400, height: 300)
                     .cornerRadius(15)
                     .shadow(radius: 10)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 70)
+                    
                 
                 Text(sounds[currentIndex].name)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 30)
                 
                 Spacer()
                 
@@ -82,7 +85,7 @@ struct MusicPlayerScreen: View {
                         .onTapGesture { nextTrack() }
                 }
                 .padding()
-                .background(BlurView(style: .systemChromeMaterialDark))
+                .background(BlurView(style: .systemMaterialDark))
                 .cornerRadius(20)
                 .padding(.bottom, 80)
             }
@@ -92,6 +95,7 @@ struct MusicPlayerScreen: View {
         }
         .onAppear { audioManager.loadSound(file: sounds[currentIndex].file) }
         .onDisappear { audioManager.stopSound() }
+        .navigationTitle("Relaxing Sounds")
         
     }
     
@@ -121,6 +125,7 @@ struct MusicPlayerScreen: View {
         isPlaying = true
         showMusicList = false
     }
+        
 }
 
 

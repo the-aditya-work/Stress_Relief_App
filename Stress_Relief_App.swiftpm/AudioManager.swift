@@ -16,12 +16,12 @@ class AudioManager: ObservableObject {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.prepareToPlay()
-                print("✅ Successfully loaded \(file).mp3")
+                print("Successfully loaded \(file).mp3")
             } catch {
-                print("❌ Error loading sound: \(error.localizedDescription)")
+                print("Error loading sound: \(error.localizedDescription)")
             }
         } else {
-            print("❌ File not found: \(file).mp3")
+            print("File not found: \(file).mp3")
         }
     }
 
