@@ -61,7 +61,7 @@ let poseSteps = [
     ])
 ]
 
-// Helper function to get pose steps based on pose name
+
 func getPoseSteps(for poseName: String) -> [String] {
     return poseSteps.first { $0.0 == poseName }?.1 ?? []
 }
