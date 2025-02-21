@@ -16,12 +16,12 @@ struct HomeScreen: View {
                 
                 VStack(spacing: 8) {
                     Text("Stress Relief Companion")
-                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                     
                     Text("Reduce stress with guided breathing, relaxing sounds, and yoga.")
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 20)

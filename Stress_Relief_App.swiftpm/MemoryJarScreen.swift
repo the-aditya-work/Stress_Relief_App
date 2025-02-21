@@ -17,7 +17,7 @@ struct MemoryJarScreen: View {
             VStack(spacing: 16){
                 Text("Mood Booster Jar")
                     .font(.title)
-                    .fontWeight(.semibold)
+                    .fontWeight(.bold)
                     .foregroundColor(.primary)
                     .padding(.top , 16)
                 
@@ -57,15 +57,13 @@ struct MemoryJarScreen: View {
                         .frame(maxWidth: .infinity, maxHeight: 50)
                         .background(Color.blue)
                         .foregroundColor(.white)
-                        .cornerRadius(12)
-                        .padding(.horizontal, 16)
+                        .cornerRadius(10)
+                        .padding(.horizontal, 30)
                         .padding(.bottom, 16)
                 }
             }
             .padding(.top, 20)
             .background(Color(.systemBackground))
-            .cornerRadius(20)
-            .shadow(radius: 10)
             .sheet(isPresented: $isAddingMemory){
                 AddMemoryScreen(memories: $memories)
             }

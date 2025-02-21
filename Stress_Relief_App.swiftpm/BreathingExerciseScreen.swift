@@ -19,13 +19,13 @@ struct BreathingExerciseScreen: View {
         VStack {
         VStack(spacing: 8){
             Text("Breathing Exercise")
-                .font(.system(size: 34, weight: .bold, design: .default))
+                .font(.system(size: 28, weight: .bold, design: .default))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
                 .padding(.top, 10)
             
             Text("Follow the circle: expand as you inhale, contract as you exhale.")
-                .font(.system(size: 18, weight: .regular, design: .default))
+                .font(.system(size: 15, weight: .regular, design: .default))
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)

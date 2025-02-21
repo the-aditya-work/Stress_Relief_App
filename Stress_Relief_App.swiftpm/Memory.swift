@@ -7,14 +7,24 @@
 
 import Foundation
 
-struct Memory: Identifiable, Codable {
-    var id = UUID()
+struct Memory: Identifiable {
+    var id = UUID() 
     var title: String
-    let description: String
-    let date: Date
+    var description: String
+    var date: Date
     var imageData: Data?
+    var audioData: Data?
+    var videoURL: URL?
+    
+    init(title: String, description: String, date: Date, imageData: Data? = nil, audioData: Data? = nil, videoURL: URL? = nil) {
+        self.title = title
+        self.description = description
+        self.date = date
+        self.imageData = imageData
+        self.audioData = audioData
+        self.videoURL = videoURL
+    }
 }
-
 
 struct SoundData {
     static let sounds = [
