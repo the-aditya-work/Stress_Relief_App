@@ -9,7 +9,6 @@ let poseImages = [
     ("Mountain Pose (Tadasana)","mountain_pose"),
     ("Downward Dog (Adho Mukha Svanasana)","downward_dog"),
     ("Child’s Pose (Balasana)","child_pose"),
-    ("Legs Up the Wall (Viparita Karani)","Legs_Up_the_Wall"),
     ("Standing Forward Bend (Uttanasana)","Standing_Forward_Bend")
 ]
 
@@ -35,13 +34,6 @@ let poseSteps = [
         "Lower your torso toward the ground, resting your forehead on the mat.",
         "Extend your arms forward, or let them rest by your sides.",
         "Relax your body and breathe deeply to calm your nervous system."
-    ]),
-    
-    ("Legs Up the Wall (Viparita Karani)", [
-        "Sit with one hip touching a wall and then swing your legs up the wall as you lie on your back.",
-        "Adjust your position so your legs are straight up against the wall, with your feet relaxed.",
-        "Place your arms by your sides, palms facing up.",
-        "Close your eyes, relax your body, and breathe deeply."
     ]),
     
     ("Standing Forward Bend (Uttanasana)", [
