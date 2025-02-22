@@ -11,7 +11,6 @@ struct YogaPosesScreen: View {
         ("Mountain Pose (Tadasana)", "Improves posture and balance, promotes mindfulness and deep breathing, reduces anxiety, and enhances focus.", "mountain_pose"),
         ("Downward Dog (Adho Mukha Svanasana)", "Stretches the entire body to release tension, increases blood flow to the brain to reduce stress, and helps relieve headaches and fatigue.", "downward_dog"),
         ("Child’s Pose (Balasana)", "Calms the nervous system, relieves tension in the back, shoulders, and chest.", "child_pose"),
-        ("Legs Up the Wall (Viparita Karani)", "Improves circulation, calms the mind, and reduces fatigue.", "Legs_Up_the_Wall"),
         ("Standing Forward Bend (Uttanasana)", "Increases blood flow to the brain, stretches the hamstrings, and relieves stress.", "Standing_Forward_Bend"),
     ]
     
