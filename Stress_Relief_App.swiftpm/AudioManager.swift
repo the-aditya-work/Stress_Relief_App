@@ -10,13 +10,12 @@ import AVFoundation
 class AudioManager: ObservableObject {
     private var audioPlayer: AVAudioPlayer?
     @Published var isPlaying = false
-
+    
     func loadSound(file: String) {
         if let url = Bundle.main.url(forResource: file, withExtension: "mp3") {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.prepareToPlay()
-                print("Successfully loaded \(file).mp3")
             } catch {
                 print("Error loading sound: \(error.localizedDescription)")
             }
@@ -24,7 +23,7 @@ class AudioManager: ObservableObject {
             print("File not found: \(file).mp3")
         }
     }
-
+    
     func togglePlayPause() {
         guard let player = audioPlayer else { return }
         
@@ -36,12 +35,12 @@ class AudioManager: ObservableObject {
             isPlaying = true
         }
     }
-
+    
     func play() {
         audioPlayer?.play()
         isPlaying = true
     }
-
+    
     func stopSound() {
         audioPlayer?.stop()
         isPlaying = false
