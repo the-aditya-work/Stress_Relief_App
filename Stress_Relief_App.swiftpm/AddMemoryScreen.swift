@@ -42,6 +42,7 @@ struct AddMemoryScreen: View {
                     DatePicker("Select Date", selection: $date, displayedComponents: .date)
                         .datePickerStyle(CompactDatePickerStyle())
                         .padding(.horizontal)
+                        
                 }
                 
                 Section(header: Text("Attachments")) {
