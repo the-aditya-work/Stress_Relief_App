@@ -30,7 +30,6 @@ struct SoundData {
     static let sounds = [
         (name: "Raindrop Serenity", file: "Rain"),
         (name: "Birdsong Bliss", file: "Bird"),
-        (name: "Lovely Whispers", file: "Relaxing Sound"),
         (name: "Piano Tranquility", file: "Peace Sound")
     ]
 }
