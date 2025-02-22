@@ -2,13 +2,13 @@
 //  File.swift
 //  Stress_Relief_App
 //
-//  Created by Batch -2  on 13/02/25.
+//  Created by Aditya Rai  on 13/02/25.
 //
 
 import Foundation
 
 struct Memory: Identifiable {
-    var id = UUID() 
+    var id = UUID()
     var title: String
     var description: String
     var date: Date

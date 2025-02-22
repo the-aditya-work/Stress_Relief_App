@@ -2,7 +2,7 @@
 //  File.swift
 //  Stress_Relief_App
 //
-//  Created by Batch -2  on 13/02/25.
+//  Created by Aditya Rai  on 13/02/25.
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ import AVFoundation
 struct AddMemoryScreen: View {
     @Environment(\.dismiss) var dismiss
     @Binding var memories: [Memory]
-
+    
     @State private var title = ""
     @State private var description = ""
     @State private var date = Date()
@@ -25,7 +25,7 @@ struct AddMemoryScreen: View {
     @State private var showImagePicker = false
     @State private var showAudioPicker = false
     @State private var showVideoPicker = false
-
+    
     var body: some View {
         NavigationView {
             Form {
@@ -42,7 +42,7 @@ struct AddMemoryScreen: View {
                     DatePicker("Select Date", selection: $date, displayedComponents: .date)
                         .datePickerStyle(CompactDatePickerStyle())
                         .padding(.horizontal)
-                        
+                    
                 }
                 
                 Section(header: Text("Attachments")) {
@@ -56,7 +56,7 @@ struct AddMemoryScreen: View {
                         showVideoPicker = true
                     }
                     
-                   
+                    
                     if let selectedImage = selectedImage {
                         Image(uiImage: selectedImage)
                             .resizable()
@@ -99,7 +99,7 @@ struct AddMemoryScreen: View {
         }
     }
     
-
+    
     func saveMemory() {
         guard !title.isEmpty, !description.isEmpty else { return }
         let newMemory = Memory(
@@ -142,9 +142,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary // Opens the photo picker app directly
+        picker.sourceType = .photoLibrary 
         picker.delegate = context.coordinator
-        picker.mediaTypes = ["public.image", "public.movie"] // Allow both images and videos
+        picker.mediaTypes = ["public.image", "public.movie"]
         return picker
     }
     
@@ -218,7 +218,7 @@ struct VideoPicker: UIViewControllerRepresentable {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = context.coordinator
-        picker.mediaTypes = ["public.movie"] // Only video selection
+        picker.mediaTypes = ["public.movie"]
         return picker
     }
     

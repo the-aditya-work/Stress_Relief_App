@@ -73,5 +73,5 @@ struct MemoryJarScreen: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-        
+    
 }

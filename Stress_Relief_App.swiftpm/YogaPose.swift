@@ -29,21 +29,21 @@ let poseSteps = [
         "Keep your head between your arms, with your gaze directed towards your legs.",
         "Breathe deeply and hold the pose."
     ]),
-
+    
     ("Child’s Pose (Balasana)", [
         "Start on your knees, with your big toes touching and knees apart.",
         "Lower your torso toward the ground, resting your forehead on the mat.",
         "Extend your arms forward, or let them rest by your sides.",
         "Relax your body and breathe deeply to calm your nervous system."
     ]),
-
+    
     ("Legs Up the Wall (Viparita Karani)", [
         "Sit with one hip touching a wall and then swing your legs up the wall as you lie on your back.",
         "Adjust your position so your legs are straight up against the wall, with your feet relaxed.",
         "Place your arms by your sides, palms facing up.",
         "Close your eyes, relax your body, and breathe deeply."
     ]),
-
+    
     ("Standing Forward Bend (Uttanasana)", [
         "Stand tall with feet hip-width apart, and bend forward from the hips.",
         "Keep your legs straight, but with a slight bend in your knees if necessary.",

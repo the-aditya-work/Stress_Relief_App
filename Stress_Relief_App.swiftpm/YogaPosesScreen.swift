@@ -20,51 +20,51 @@ struct YogaPosesScreen: View {
             LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.purple.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
             
-        ScrollView {
-            VStack(spacing: 20) {
-                Text("Yoga is the journey of the self, through the self, to the self.")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.black.opacity(0.3))
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                
-                ForEach(poses, id: \.0) { pose in
-                    NavigationLink(destination: YogaPoseDetailView(pose: pose, steps: getPoseSteps(for: pose.0))) {
-                        HStack {
-                            Image(pose.2)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 80, height: 80)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .shadow(radius: 5)
-                            
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(pose.0)
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                
-                                Text(pose.1)
-                                    .font(.caption)
-                                    .foregroundColor(.white.opacity(0.8))
-                                    .lineLimit(2)
-                            }
-                            Spacer()
-                        }
+            ScrollView {
+                VStack(spacing: 20) {
+                    Text("Yoga is the journey of the self, through the self, to the self.")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
                         .padding()
-                        .background(LinearGradient(gradient: Gradient(colors: [Color.purple.opacity(0.8), Color.blue.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
-                        .cornerRadius(15)
-                        .shadow(radius: 5)
+                        .foregroundColor(.white)
+                        .background(Color.black.opacity(0.3))
+                        .cornerRadius(12)
                         .padding(.horizontal)
+                    
+                    ForEach(poses, id: \.0) { pose in
+                        NavigationLink(destination: YogaPoseDetailView(pose: pose, steps: getPoseSteps(for: pose.0))) {
+                            HStack {
+                                Image(pose.2)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 80, height: 80)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .shadow(radius: 5)
+                                
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(pose.0)
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    
+                                    Text(pose.1)
+                                        .font(.caption)
+                                        .foregroundColor(.white.opacity(0.8))
+                                        .lineLimit(2)
+                                }
+                                Spacer()
+                            }
+                            .padding()
+                            .background(LinearGradient(gradient: Gradient(colors: [Color.purple.opacity(0.8), Color.blue.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
+                            .cornerRadius(15)
+                            .shadow(radius: 5)
+                            .padding(.horizontal)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }
-    }
         .navigationTitle("Yoga Poses")
         .navigationBarTitleDisplayMode(.inline)
     }

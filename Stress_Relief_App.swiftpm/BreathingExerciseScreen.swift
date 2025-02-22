@@ -17,23 +17,23 @@ struct BreathingExerciseScreen: View {
     var body: some View {
         
         VStack {
-        VStack(spacing: 8){
-            Text("Breathing Exercise")
-                .font(.system(size: 28, weight: .bold, design: .default))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-                .padding(.top, 10)
+            VStack(spacing: 8){
+                Text("Breathing Exercise")
+                    .font(.system(size: 28, weight: .bold, design: .default))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                    .padding(.top, 10)
+                
+                Text("Follow the circle: expand as you inhale, contract as you exhale.")
+                    .font(.system(size: 15, weight: .regular, design: .default))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 30)
+            }
+            .padding(.top, 10)
             
-            Text("Follow the circle: expand as you inhale, contract as you exhale.")
-                .font(.system(size: 15, weight: .regular, design: .default))
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 30)
-        }
-        .padding(.top, 10)
-        
-        Spacer(minLength: 10)
-        
+            Spacer(minLength: 10)
+            
             ZStack{
                 Circle()
                     .frame(width: circleSize, height: circleSize)
@@ -44,7 +44,7 @@ struct BreathingExerciseScreen: View {
                     .font(.title)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
-                }
+            }
             .shadow(radius: 10)
             
             Spacer()

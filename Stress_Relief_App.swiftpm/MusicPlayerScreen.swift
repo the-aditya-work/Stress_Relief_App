@@ -2,7 +2,7 @@
 //  PlayMusic.swift
 //  Stress_Relief_App
 //
-//  Created by Batch -2  on 14/02/25.
+//  Created by Aditya Rai  on 14/02/25.
 
 import SwiftUI
 import AVFoundation
@@ -24,7 +24,7 @@ struct MusicPlayerScreen: View {
             .ignoresSafeArea()
             
             VStack {
-               
+                
                 HStack {
                     Button(action: { showMusicList.toggle() }) {
                         Image(systemName: "list.bullet")
@@ -32,7 +32,7 @@ struct MusicPlayerScreen: View {
                             .frame(width: 24, height: 24)
                             .foregroundColor(.white)
                             .padding(12)
-                            
+                        
                             .background(BlurView(style: .systemUltraThinMaterialDark))
                             .clipShape(Circle())
                     }
@@ -53,7 +53,7 @@ struct MusicPlayerScreen: View {
                     .cornerRadius(15)
                     .shadow(radius: 10)
                     .padding(.bottom, 70)
-                    
+                
                 
                 Text(sounds[currentIndex].name)
                     .font(.title2)
@@ -125,7 +125,7 @@ struct MusicPlayerScreen: View {
         isPlaying = true
         showMusicList = false
     }
-        
+    
 }
 
 
