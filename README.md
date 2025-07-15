@@ -48,7 +48,7 @@ Xcode Playground (for iPad or Mac)
 🚀 Getting Started
 Open the project in Xcode (Playground format).
 
-Run on a Mac or iPad to experience the interactive tabs.
+Run on a iPhone to experience the interactive tabs.
 
 No internet connection required — works offline too.
 
