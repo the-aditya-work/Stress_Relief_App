@@ -66,6 +66,5 @@ This project was built as part of a student-led mental wellness initiative and s
 
 Made with ❤️ by Aditya Rai.
 
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+
 
