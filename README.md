@@ -19,6 +19,8 @@ Memory Jar for joyful moments
 Whether you're dealing with exam pressure, work stress, or daily anxiety, this app offers a calming space to unwind and re-center.
 
 ✨ Features
+
+
 🏠 Home Tab:
 Guided breathing exercises to help calm your nervous system.
 
@@ -43,7 +45,7 @@ Swift
 
 SwiftUI
 
-Xcode Playground (for iPad or Mac)
+Xcode Playground (for iPhone)
 
 🚀 Getting Started
 Open the project in Xcode (Playground format).
