@@ -1,20 +1,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingOnboarding = false
+    
     var body: some View {
-        TabView{
-            HomeScreen().tabItem{
-                Image(systemName: "house.fill")
-                Text("Home")
+        ZStack {
+            TabView{
+                HomeScreen().tabItem{
+                    Image(systemName: "house.fill")
+                    Text("Home")
+                }
+                
+                GratitudePracticeScreen().tabItem {
+                    Image(systemName: "heart.fill")
+                    Text("Gratitude")
+                }
+                MemoryJarScreen().tabItem {
+                    Image(systemName: "archivebox.fill")
+                    Text("Memory Jar")
+                }
             }
             
-            GratitudePracticeScreen().tabItem {
-                Image(systemName: "heart.fill")
-                Text("Gratitude")
+            // Full screen onboarding overlay
+            if showingOnboarding {
+                Onboarding(isPresented: $showingOnboarding)
+                    .transition(.opacity)
+                    .zIndex(1)
             }
-            MemoryJarScreen().tabItem {
-                Image(systemName: "archivebox.fill")
-                Text("Memory Jar")
+        }
+        .onAppear {
+            // Check if user has seen onboarding
+            if !UserDefaults.standard.bool(forKey: "hasSeenOnboarding") {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    showingOnboarding = true
+                }
             }
         }
     }
