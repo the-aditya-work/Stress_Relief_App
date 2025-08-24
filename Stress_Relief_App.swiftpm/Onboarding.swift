@@ -111,7 +111,7 @@ struct Onboarding: View {
                             .foregroundColor(.blue)
                             .padding(.horizontal, 24)
                             .padding(.vertical, 12)
-                            .background(Color.blue.opacity(0.1))
+                            .background(Color(.systemBlue).opacity(0.1))
                             .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
                         }
                         

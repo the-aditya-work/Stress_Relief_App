@@ -8,6 +8,7 @@ import SwiftUI
 
 struct MemoryRow: View {
     let memory: Memory
+    let onLongPress: (() -> Void)?
     
     var body: some View {
         HStack(spacing: 12) {
@@ -24,7 +25,7 @@ struct MemoryRow: View {
                     .scaledToFit()
                     .frame(width: 60, height: 60)
                     .foregroundColor(.gray.opacity(0.5))
-                    .background(Color(.systemGray5))
+                    .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             
@@ -41,7 +42,12 @@ struct MemoryRow: View {
             Spacer()
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemBackground)).shadow(radius: 1))
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .onLongPressGesture {
+            onLongPress?()
+        }
     }
 }
 

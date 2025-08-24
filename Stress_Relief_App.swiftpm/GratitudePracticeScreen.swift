@@ -14,6 +14,10 @@ struct GratitudePracticeScreen: View {
     @State private var selectedDate = Date()
     @State private var showingCalendar = false
     @State private var showingWelcomePopup = false
+    @State private var showingActionSheet = false
+    @State private var selectedGratitudeIndex: Int?
+    @State private var showingEditSheet = false
+    @State private var editingGratitude = ""
     
     private var weekdayFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -89,7 +93,11 @@ struct GratitudePracticeScreen: View {
                                     GratitudeNoteCard(
                                         text: item.text,
                                         date: item.date,
-                                        colorIndex: index % 5
+                                        colorIndex: index % 5,
+                                        onLongPress: {
+                                            selectedGratitudeIndex = gratitudeList.firstIndex { $0.text == item.text && Calendar.current.isDate($0.date, inSameDayAs: item.date) }
+                                            showingActionSheet = true
+                                        }
                                     )
                                     .transition(.asymmetric(
                                         insertion: .scale.combined(with: .opacity),
@@ -102,7 +110,7 @@ struct GratitudePracticeScreen: View {
                         }
                     }
                 }
-                .background(Color(.systemGroupedBackground))
+                .background(Color.white)
                 
                 // Floating Action Button (Add Button)
                 VStack {
@@ -157,8 +165,42 @@ struct GratitudePracticeScreen: View {
                 selectedDate: $selectedDate
             )
         }
+        .sheet(isPresented: $showingEditSheet) {
+            EditGratitudeSheet(
+                editingGratitude: $editingGratitude,
+                gratitudeList: $gratitudeList,
+                selectedIndex: selectedGratitudeIndex
+            )
+        }
         .fullScreenCover(isPresented: $showingWelcomePopup) {
             GratitudeWelcomePopup()
+        }
+        .actionSheet(isPresented: $showingActionSheet) {
+            ActionSheet(
+                title: Text("Gratitude Options"),
+                message: Text("What would you like to do with this gratitude note?"),
+                buttons: [
+                    .default(Text("Edit")) {
+                        if let index = selectedGratitudeIndex {
+                            editingGratitude = gratitudeList[index].text
+                            showingEditSheet = true
+                        }
+                    },
+                    .destructive(Text("Delete")) {
+                        deleteGratitude()
+                    },
+                    .cancel()
+                ]
+            )
+        }
+    }
+    
+    private func deleteGratitude() {
+        if let index = selectedGratitudeIndex {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                gratitudeList.remove(at: index)
+            }
+            selectedGratitudeIndex = nil
         }
     }
 }
@@ -382,6 +424,7 @@ struct GratitudeNoteCard: View {
     let text: String
     let date: Date
     let colorIndex: Int
+    let onLongPress: (() -> Void)?
     
     private let colors: [Color] = [
         Color(red: 1.0, green: 0.96, blue: 0.85),  // Light yellow
@@ -420,6 +463,9 @@ struct GratitudeNoteCard: View {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
                 .stroke(Color.black.opacity(0.04), lineWidth: 1)
         )
+        .onLongPressGesture {
+            onLongPress?()
+        }
     }
 }
 
@@ -512,6 +558,100 @@ struct AddGratitudeSheet: View {
                 gratitudeList.append((text: trimmedText, date: Date()))
             }
             newGratitude = ""
+            dismiss()
+        }
+    }
+}
+
+struct EditGratitudeSheet: View {
+    @Binding var editingGratitude: String
+    @Binding var gratitudeList: [(text: String, date: Date)]
+    @Environment(\.dismiss) private var dismiss
+    @FocusState private var isTextFieldFocused: Bool
+    let selectedIndex: Int?
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 28) {
+                VStack(spacing: 20) {
+                    Image(systemName: "heart.fill")
+                        .font(.system(size: 52, weight: .light))
+                        .foregroundColor(.pink)
+                    
+                    VStack(spacing: 8) {
+                        Text("Edit Gratitude Note")
+                            .font(.system(size: 26, weight: .bold, design: .rounded))
+                            .multilineTextAlignment(.center)
+                        
+                        Text("Modify your gratitude note")
+                            .font(.system(size: 17, weight: .regular))
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
+                    }
+                }
+                .padding(.top, 24)
+                
+                VStack(spacing: 20) {
+                    TextField("I'm grateful for...", text: $editingGratitude, axis: .vertical)
+                        .font(.system(size: 17, weight: .regular))
+                        .padding(18)
+                        .background(Color(.systemGray6))
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        .focused($isTextFieldFocused)
+                        .lineLimit(3...6)
+                    
+                    Button(action: saveEditedGratitude) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 18, weight: .medium))
+                            Text("Save Changes")
+                                .font(.system(size: 18, weight: .semibold))
+                        }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 18)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.pink, Color.pink.opacity(0.85)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        .shadow(color: .pink.opacity(0.25), radius: 10, x: 0, y: 4)
+                    }
+                    .disabled(editingGratitude.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .opacity(editingGratitude.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.6 : 1.0)
+                }
+                .padding(.horizontal, 24)
+                
+                Spacer()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(
+                leading: Button("Cancel") {
+                    dismiss()
+                }
+                .foregroundColor(.blue),
+                trailing: Button("Done") {
+                    saveEditedGratitude()
+                }
+                .foregroundColor(.blue)
+                .disabled(editingGratitude.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            )
+        }
+        .onAppear {
+            isTextFieldFocused = true
+        }
+    }
+    
+    private func saveEditedGratitude() {
+        let trimmedText = editingGratitude.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedText.isEmpty, let index = selectedIndex, index < gratitudeList.count {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                gratitudeList[index] = (text: trimmedText, date: gratitudeList[index].date)
+            }
             dismiss()
         }
     }
