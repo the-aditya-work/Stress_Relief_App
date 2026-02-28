@@ -57,14 +57,18 @@ struct GratitudePracticeScreen: View {
 
                     if selectedDateGratitudes.isEmpty {
                         VStack(spacing: 20) {
+                            Spacer()
+
                             Image(systemName: "note.text")
-                                .font(.system(size: 52, weight: .light))
+                                .font(.system(size: 72, weight: .light))
                                 .foregroundColor(.secondary.opacity(0.6))
+                                .padding(.bottom, 8)
 
                             VStack(spacing: 8) {
                                 Text(Calendar.current.isDateInToday(selectedDate) ? "No gratitude notes yet" : "No notes for this date")
                                     .font(.system(size: 22, weight: .medium))
                                     .foregroundColor(.secondary)
+                                    .multilineTextAlignment(.center)
 
                                 Text(Calendar.current.isDateInToday(selectedDate) ? "Start your gratitude journey today" : "Add gratitude notes to see them here")
                                     .font(.system(size: 16, weight: .regular))
@@ -72,9 +76,10 @@ struct GratitudePracticeScreen: View {
                                     .multilineTextAlignment(.center)
                                     .padding(.horizontal, 40)
                             }
+
+                            Spacer()
                         }
-                        .padding(.top, 60)
-                        .padding(.bottom, 60)
+                        .frame(maxWidth: .infinity, minHeight: UIScreen.main.bounds.height * 0.55)
                     } else {
                         VStack(spacing: 16) {
                             ForEach(Array(selectedDateGratitudes.enumerated()), id: \.offset) { index, item in
