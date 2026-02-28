@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MemoryDetailScreen.swift
 //  Stress_Relief_App
 //
 //  Created by Aditya Rai on 13/02/25.
@@ -7,43 +7,46 @@
 
 import SwiftUI
 
-struct MemoryDetailScreen : View {
+struct MemoryDetailScreen: View {
     let memory: Memory
-    
+
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                if let imageData = memory.imageData, let uiImage = UIImage(data: imageData) {
+        List {
+            // Hero image — full-width, above everything else
+            if let imageData = memory.imageData, let uiImage = UIImage(data: imageData) {
+                Section {
                     Image(uiImage: uiImage)
                         .resizable()
-                        .scaledToFit()
-                        .frame(height: 250)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding()
-                    
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 240)
+                        .clipped()
+                        .listRowInsets(EdgeInsets())       // bleed edge-to-edge
                 }
-                
-                Text(memory.title)
-                    .font(.title3)
-                    .fontWeight(.medium)
-                    .foregroundColor(.primary)
-                
-                Text(memory.date, style: .date)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                
-                Text(memory.description)
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
-                    .foregroundColor(.primary)
-                
-                Spacer()
-                
             }
-            .navigationTitle("Memory Details")
-            .navigationBarTitleDisplayMode(.inline)
-            .padding()
+
+            // Date row
+            Section {
+                Label {
+                    Text(memory.date, style: .date)
+                        .foregroundColor(.secondary)
+                } icon: {
+                    Image(systemName: "calendar")
+                        .foregroundColor(.secondary)
+                }
+            }
+
+            // Description — only shown when non-empty
+            if !memory.description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                Section(header: Text("Memory")) {
+                    Text(memory.description)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                }
+            }
         }
+        .listStyle(.insetGrouped)
+        .navigationTitle(memory.title)
+        .navigationBarTitleDisplayMode(.large)
     }
 }

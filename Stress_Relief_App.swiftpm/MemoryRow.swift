@@ -1,53 +1,50 @@
 //
-//  File.swift
+//  MemoryRow.swift
 //  Stress_Relief_App
 //
-//  Created by Aditya Rai  on 13/02/25.
+//  Created by Aditya Rai on 13/02/25.
 //
 import SwiftUI
 
 struct MemoryRow: View {
     let memory: Memory
     let onLongPress: (() -> Void)?
-    
+
     var body: some View {
         HStack(spacing: 12) {
+            // Thumbnail
             if let imageData = memory.imageData, let uiImage = UIImage(data: imageData) {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .shadow(radius: 2)
+                    .frame(width: 56, height: 56)
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             } else {
-                Image(systemName: "photo.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .foregroundColor(.gray.opacity(0.5))
-                    .background(Color(.systemGray6))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(Color(.systemGray5))
+                    .frame(width: 56, height: 56)
+                    .overlay(
+                        Image(systemName: "photo")
+                            .font(.system(size: 22))
+                            .foregroundColor(Color(.systemGray2))
+                    )
             }
-            
-            VStack(alignment: .leading, spacing: 4) {
+
+            // Text stack
+            VStack(alignment: .leading, spacing: 3) {
                 Text(memory.title)
-                    .font(.headline)
+                    .font(.body)
+                    .fontWeight(.medium)
                     .foregroundColor(.primary)
-                
+
                 Text(memory.date, style: .date)
-                    .font(.subheadline)
+                    .font(.footnote)
                     .foregroundColor(.secondary)
             }
-            
-            Spacer()
         }
-        .padding()
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+        .padding(.vertical, 4)
         .onLongPressGesture {
             onLongPress?()
         }
     }
 }
-

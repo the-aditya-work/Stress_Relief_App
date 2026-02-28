@@ -17,67 +17,63 @@ struct MemoryJarScreen: View {
     @State private var editingMemory: Memory?
     
     var body: some View {
-        NavigationView {
-            
-            VStack(spacing: 16){
-                Text("Mood Booster Jar")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                    .padding(.top , 16)
-                
+        NavigationStack {
+            Group {
                 if memories.isEmpty {
-                    VStack(spacing: 12) {
-                        Image("memory")
-                            .resizable()
-                            .scaledToFit()
-                            .cornerRadius(16)
-                            .frame(width: 350, height: 200)
-                            .padding(.top, 32)
-                        
-                        Text("Your memory jar is empty. Start by adding a memory!")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                        
-                        Text(" 🌟 Capture your happy moments, big or small, and revisit them whenever you need a smile. Reliving positive memories can boost your mood, reduce stress, and remind you of life's joyful moments!")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal,32)
+                    // Empty state — centred, scrollable so it plays nicely on small screens
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            Spacer()
+
+                            Image(systemName: "archivebox.fill")
+                                .font(.system(size: 72, weight: .light))
+                                .foregroundColor(.orange.opacity(0.7))
+                                .padding(.bottom, 8)
+
+                            Text("Your memory jar is empty")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                                .multilineTextAlignment(.center)
+
+                            Text("Start by adding a memory. Reliving positive moments can boost your mood and reduce stress.")
+                                .font(.callout)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 32)
+
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity, minHeight: UIScreen.main.bounds.height * 0.55)
                     }
-                }
-                else {
-                    List(memories) { memory in
-                        NavigationLink(destination: MemoryDetailScreen(memory: memory)){
-                            MemoryRow(memory: memory, onLongPress: {
-                                selectedMemoryIndex = memories.firstIndex { $0.id == memory.id }
-                                editingMemory = memory
-                                showingActionSheet = true
-                            })
+                } else {
+                    List {
+                        ForEach(memories) { memory in
+                            NavigationLink(destination: MemoryDetailScreen(memory: memory)) {
+                                MemoryRow(memory: memory, onLongPress: {
+                                    selectedMemoryIndex = memories.firstIndex { $0.id == memory.id }
+                                    editingMemory = memory
+                                    showingActionSheet = true
+                                })
+                            }
                         }
                     }
-                    .listStyle(InsetGroupedListStyle())
-                }
-                
-                Button(action: { isAddingMemory.toggle() }) {
-                    Text("Add New Memory")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, maxHeight: 50)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .padding(.horizontal, 30)
-                        .padding(.bottom, 16)
+                    .listStyle(.insetGrouped)
                 }
             }
-            .padding(.top, 20)
-            .background(Color.white)
-            .sheet(isPresented: $isAddingMemory){
+            .navigationTitle("Mood Booster Jar")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { isAddingMemory.toggle() }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .sheet(isPresented: $isAddingMemory) {
                 AddMemoryScreen(memories: $memories)
             }
             .onAppear {
-                // Show welcome popup on first visit
                 if !UserDefaults.standard.bool(forKey: "hasSeenMemoryWelcome") {
                     showingWelcomePopup = true
                 }
@@ -93,26 +89,20 @@ struct MemoryJarScreen: View {
                     )
                 }
             }
-            .actionSheet(isPresented: $showingActionSheet) {
-                ActionSheet(
-                    title: Text("Memory Options"),
-                    message: Text("What would you like to do with this memory?"),
-                    buttons: [
-                        .default(Text("Edit")) {
-                            showingEditSheet = true
-                        },
-                        .destructive(Text("Delete")) {
-                            deleteMemory()
-                        },
-                        .cancel()
-                    ]
-                )
+            .confirmationDialog(
+                "Memory Options",
+                isPresented: $showingActionSheet,
+                titleVisibility: .visible
+            ) {
+                Button("Edit") {
+                    showingEditSheet = true
+                }
+                Button("Delete", role: .destructive) {
+                    deleteMemory()
+                }
+                Button("Cancel", role: .cancel) {}
             }
-            //.navigationTitle("Mood Booster Jar")
-            .navigationBarTitleDisplayMode(.inline)
-            
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func deleteMemory() {

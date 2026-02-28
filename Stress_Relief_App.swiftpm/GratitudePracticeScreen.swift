@@ -26,172 +26,137 @@ struct GratitudePracticeScreen: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        // Calendar Section
-                        VStack(spacing: 16) {
-                            HStack {
-                                Text("Today's Gratitude")
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .foregroundColor(.primary)
-                                
-                                Spacer()
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 0) {
+                    // Gratitude Count Badge
+                    let todayGratitudes = gratitudeList.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
+                    if !todayGratitudes.isEmpty {
+                        HStack {
+                            Spacer()
+                            HStack(spacing: 6) {
+                                Image(systemName: "heart.fill")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.pink)
+                                Text("\(todayGratitudes.count) entries today")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.pink)
                             }
-                            
-                            // Gratitude Count Badge
-                            let todayGratitudes = gratitudeList.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
-                            if !todayGratitudes.isEmpty {
-                                HStack {
-                                    Spacer()
-                                    HStack(spacing: 6) {
-                                        Image(systemName: "heart.fill")
-                                            .font(.system(size: 12, weight: .medium))
-                                            .foregroundColor(.pink)
-                                        Text("\(todayGratitudes.count) entries today")
-                                            .font(.system(size: 14, weight: .medium))
-                                            .foregroundColor(.pink)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(Color.pink.opacity(0.15))
+                            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 8)
+                        .padding(.bottom, 12)
+                    }
+
+                    // Gratitude Notes List for Selected Date
+                    let selectedDateGratitudes = gratitudeList.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
+
+                    if selectedDateGratitudes.isEmpty {
+                        VStack(spacing: 20) {
+                            Image(systemName: "note.text")
+                                .font(.system(size: 52, weight: .light))
+                                .foregroundColor(.secondary.opacity(0.6))
+
+                            VStack(spacing: 8) {
+                                Text(Calendar.current.isDateInToday(selectedDate) ? "No gratitude notes yet" : "No notes for this date")
+                                    .font(.system(size: 22, weight: .medium))
+                                    .foregroundColor(.secondary)
+
+                                Text(Calendar.current.isDateInToday(selectedDate) ? "Start your gratitude journey today" : "Add gratitude notes to see them here")
+                                    .font(.system(size: 16, weight: .regular))
+                                    .foregroundColor(.secondary.opacity(0.8))
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 40)
+                            }
+                        }
+                        .padding(.top, 60)
+                        .padding(.bottom, 60)
+                    } else {
+                        VStack(spacing: 16) {
+                            ForEach(Array(selectedDateGratitudes.enumerated()), id: \.offset) { index, item in
+                                GratitudeNoteCard(
+                                    text: item.text,
+                                    date: item.date,
+                                    colorIndex: index % 5,
+                                    onLongPress: {
+                                        selectedGratitudeIndex = gratitudeList.firstIndex { $0.text == item.text && Calendar.current.isDate($0.date, inSameDayAs: item.date) }
+                                        showingActionSheet = true
                                     }
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
-                                    .background(Color.pink.opacity(0.15))
-                                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                                }
+                                )
+                                .transition(.asymmetric(
+                                    insertion: .scale.combined(with: .opacity),
+                                    removal: .scale.combined(with: .opacity)
+                                ))
                             }
                         }
                         .padding(.horizontal, 20)
-                        .padding(.top, 16)
-                        .padding(.bottom, 28)
-                        
-                        // Gratitude Notes List for Selected Date
-                        let selectedDateGratitudes = gratitudeList.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
-                        
-                        if selectedDateGratitudes.isEmpty {
-                            VStack(spacing: 20) {
-                                Image(systemName: "note.text")
-                                    .font(.system(size: 52, weight: .light))
-                                    .foregroundColor(.secondary.opacity(0.6))
-                                
-                                VStack(spacing: 8) {
-                                    Text(Calendar.current.isDateInToday(selectedDate) ? "No gratitude notes yet" : "No notes for this date")
-                                        .font(.system(size: 22, weight: .medium))
-                        .foregroundColor(.secondary)
-                                    
-                                    Text(Calendar.current.isDateInToday(selectedDate) ? "Start your gratitude journey today" : "Add gratitude notes to see them here")
-                                        .font(.system(size: 16, weight: .regular))
-                                        .foregroundColor(.secondary.opacity(0.8))
-                        .multilineTextAlignment(.center)
-                                        .padding(.horizontal, 40)
-                                }
-                            }
-                            .padding(.top, 40)
-                            .padding(.bottom, 60)
-                        } else {
-                            VStack(spacing: 16) {
-                                ForEach(Array(selectedDateGratitudes.enumerated()), id: \.offset) { index, item in
-                                    GratitudeNoteCard(
-                                        text: item.text,
-                                        date: item.date,
-                                        colorIndex: index % 5,
-                                        onLongPress: {
-                                            selectedGratitudeIndex = gratitudeList.firstIndex { $0.text == item.text && Calendar.current.isDate($0.date, inSameDayAs: item.date) }
-                                            showingActionSheet = true
-                                        }
-                                    )
-                                    .transition(.asymmetric(
-                                        insertion: .scale.combined(with: .opacity),
-                                        removal: .scale.combined(with: .opacity)
-                                    ))
-                                }
-                            }
-                            .padding(.horizontal, 20)
-                            .padding(.bottom, 40)
-                        }
-                    }
-                }
-                .background(Color.white)
-                
-                // Floating Action Button (Add Button)
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button(action: { showingAddSheet = true }) {
-                            Image(systemName: "plus")
-                                .font(.system(size: 24, weight: .medium))
-                                .foregroundColor(.white)
-                                .frame(width: 56, height: 56)
-                                .background(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [Color.blue, Color.blue.opacity(0.85)]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .clipShape(Circle())
-                                .shadow(color: .blue.opacity(0.3), radius: 12, x: 0, y: 6)
-                        }
-                        .padding(.trailing, 20)
-                        .padding(.bottom, 100) // Above tab bar
+                        .padding(.bottom, 40)
                     }
                 }
             }
             .navigationTitle("Gratitude Journal")
             .navigationBarTitleDisplayMode(.large)
-            .navigationBarItems(trailing: 
-                Button(action: { showingCalendar = true }) {
-                    Image(systemName: "calendar")
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.blue)
+            .toolbar {
+                // Calendar button — top left
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { showingCalendar = true }) {
+                        Image(systemName: "calendar")
+                    }
                 }
-            )
-        }
-        .onAppear {
-            // Show welcome popup on first visit
-            if !UserDefaults.standard.bool(forKey: "hasSeenGratitudeWelcome") {
-                showingWelcomePopup = true
+                // Add button — top right (mirrors Mood Booster Jar)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { showingAddSheet = true }) {
+                        Image(systemName: "plus")
+                    }
+                }
             }
-        }
-        .sheet(isPresented: $showingAddSheet) {
-            AddGratitudeSheet(
-                newGratitude: $newGratitude,
-                gratitudeList: $gratitudeList
-            )
-        }
-        .sheet(isPresented: $showingCalendar) {
-            GratitudeCalendarSheet(
-                gratitudeList: $gratitudeList,
-                selectedDate: $selectedDate
-            )
-        }
-        .sheet(isPresented: $showingEditSheet) {
-            EditGratitudeSheet(
-                editingGratitude: $editingGratitude,
-                gratitudeList: $gratitudeList,
-                selectedIndex: selectedGratitudeIndex
-            )
-        }
-        .fullScreenCover(isPresented: $showingWelcomePopup) {
-            GratitudeWelcomePopup()
-        }
-        .actionSheet(isPresented: $showingActionSheet) {
-            ActionSheet(
-                title: Text("Gratitude Options"),
-                message: Text("What would you like to do with this gratitude note?"),
-                buttons: [
-                    .default(Text("Edit")) {
-                        if let index = selectedGratitudeIndex {
-                            editingGratitude = gratitudeList[index].text
-                            showingEditSheet = true
-                        }
-                    },
-                    .destructive(Text("Delete")) {
-                        deleteGratitude()
-                    },
-                    .cancel()
-                ]
-            )
+            .onAppear {
+                if !UserDefaults.standard.bool(forKey: "hasSeenGratitudeWelcome") {
+                    showingWelcomePopup = true
+                }
+            }
+            .sheet(isPresented: $showingAddSheet) {
+                AddGratitudeSheet(
+                    newGratitude: $newGratitude,
+                    gratitudeList: $gratitudeList
+                )
+            }
+            .sheet(isPresented: $showingCalendar) {
+                GratitudeCalendarSheet(
+                    gratitudeList: $gratitudeList,
+                    selectedDate: $selectedDate
+                )
+            }
+            .sheet(isPresented: $showingEditSheet) {
+                EditGratitudeSheet(
+                    editingGratitude: $editingGratitude,
+                    gratitudeList: $gratitudeList,
+                    selectedIndex: selectedGratitudeIndex
+                )
+            }
+            .fullScreenCover(isPresented: $showingWelcomePopup) {
+                GratitudeWelcomePopup()
+            }
+            .confirmationDialog(
+                "Gratitude Options",
+                isPresented: $showingActionSheet,
+                titleVisibility: .visible
+            ) {
+                Button("Edit") {
+                    if let index = selectedGratitudeIndex {
+                        editingGratitude = gratitudeList[index].text
+                        showingEditSheet = true
+                    }
+                }
+                Button("Delete", role: .destructive) {
+                    deleteGratitude()
+                }
+                Button("Cancel", role: .cancel) {}
+            }
         }
     }
     
