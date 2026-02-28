@@ -61,7 +61,7 @@ struct GratitudePracticeScreen: View {
 
                             Image(systemName: "note.text")
                                 .font(.system(size: 72, weight: .light))
-                                .foregroundColor(.secondary.opacity(0.6))
+                                .foregroundColor(.pink.opacity(0.7))
                                 .padding(.bottom, 8)
 
                             VStack(spacing: 8) {
@@ -110,12 +110,14 @@ struct GratitudePracticeScreen: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { showingCalendar = true }) {
                         Image(systemName: "calendar")
+                            .foregroundColor(.blue)
                     }
                 }
                 // Add button — top right (mirrors Mood Booster Jar)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showingAddSheet = true }) {
                         Image(systemName: "plus")
+                            .foregroundColor(.blue)
                     }
                 }
             }
